@@ -2,7 +2,8 @@ show_menu () {
     # We show the host name right in the menu title so we know which Pi we are connected to
     OPTION=$(whiptail --title "Menu (Host:$(hostname))" --menu "Choose your option:" 12 36 5 \
     "1" "Heating Off" \
-    "2" "Heating On" 3>&1 1>&2 2>&3)
+    "2" "Heating On" \
+    "3" "Demo file" \3>&1 1>&2 2>&3)
  
     BUTTON=$?
     # Exit if user pressed cancel or escape
@@ -33,6 +34,17 @@ show_menu () {
                 show_menu
             fi
             ;;
+	3)
+            confirmAnswer "Would you like to play Audio file?"
+            if [ $? = 0 ]; then
+                echo Playing audio...
+                aplay /home/pi/drumroll.wav
+		show_menu
+            else
+                show_menu
+            fi
+            ;;
         esac
     fi  
 }
+
